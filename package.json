@@ -1,15 +1,16 @@
 {
-  "name": "arbitrage-backend",
+  "name": "arbimixto-backend",
   "version": "1.0.0",
-  "description": "Backend para el servicio de arbitraje crypto.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "axios": "^1.6.2",
-    "ccxt": "^4.2.79" 
+    "axios": "latest",
+    "crypto-js": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "cors": "latest"
   }
 }
