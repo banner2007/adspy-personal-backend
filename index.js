@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 
 import binanceRoutes from "./routes/binance_routes.js";
-// Corregido a plural para que coincida con tu repositorio
 import bitbexRoutes from "./routes/bitbex_routes.js";
 import arbitrageRoutes from "./routes/arbitrage_routes.js";
 
