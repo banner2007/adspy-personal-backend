@@ -1,23 +1,29 @@
 import express from "express";
-import { ExchangeManager } from "../services/exchange_manager.js";
+import { BitbexService } from "../services/bitbex_service.js";
 
 const router = express.Router();
-const manager = new ExchangeManager();
+const bitbex = new BitbexService();
 
-router.get("/check/:symbol", async (req, res) => {
+router.get("/account", async (req, res) => {
   try {
-    const symbol = req.params.symbol;
+    res.json(await bitbex.getAccount());
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-    const binance = await manager.getExchange("binance").getPrice(symbol);
-    const bitbex = await manager.getExchange("bitbex").getPrice(symbol);
+// **AÑADIDO:** Soluciona el 404 para /bitbex/ticker
+router.get("/ticker", async (req, res) => {
+  try {
+    res.json(await bitbex.getTicker());
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-    res.json({
-      symbol,
-      binance: binance.price || binance.last,
-      bitbex: bitbex.price || bitbex.last,
-      difference:
-        (parseFloat(binance.price) - parseFloat(bitbex.price)).toFixed(4)
-    });
+router.get("/price/:symbol", async (req, res) => {
+  try {
+    res.json(await bitbex.getPrice(req.params.symbol));
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
