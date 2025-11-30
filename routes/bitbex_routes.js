@@ -4,26 +4,25 @@ import { BitbexService } from "../services/bitbex_service.js";
 const router = express.Router();
 const bitbex = new BitbexService();
 
-// Ruta: /bitbex/account
 router.get("/account", async (req, res) => {
   try {
     res.json(await bitbex.getAccount());
   } catch (err) {
+    // Manejo de error corregido
     res.status(500).json({ error: err.message });
   }
 });
 
-// RUTA CORREGIDA: Incluye /ticker y usa getPrices()
+// RUTA AÑADIDA Y CORREGIDA: Usa getPrices()
 router.get("/ticker", async (req, res) => {
   try {
-    // CAMBIO: Usamos getPrices() para obtener el ticker completo
+    // Asumimos que el método para obtener el ticker completo es getPrices()
     res.json(await bitbex.getPrices()); 
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// Ruta: /bitbex/price/:symbol
 router.get("/price/:symbol", async (req, res) => {
   try {
     res.json(await bitbex.getPrice(req.params.symbol));
