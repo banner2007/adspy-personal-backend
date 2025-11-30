@@ -1,21 +1,29 @@
 import express from "express";
-import { BitbexService } from "../services/bitbex_service.js";
+import { BinanceService } from "../services/binance_service.js";
 
 const router = express.Router();
-const bitbex = new BitbexService();
+const binance = new BinanceService();
 
-router.get("/account", async (req, res) => {
+router.get("/time", async (req, res) => {
   try {
-    res.json(await bitbex.getAccount());
+    res.json(await binance.getServerTime());
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// **AÑADIDO:** Soluciona el 404 para /bitbex/ticker
+router.get("/account", async (req, res) => {
+  try {
+    res.json(await binance.getAccount());
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// **Ruta AÑADIDA:** Soluciona el 404 para /binance/ticker
 router.get("/ticker", async (req, res) => {
   try {
-    res.json(await bitbex.getTicker());
+    res.json(await binance.getTicker());
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -23,7 +31,7 @@ router.get("/ticker", async (req, res) => {
 
 router.get("/price/:symbol", async (req, res) => {
   try {
-    res.json(await bitbex.getPrice(req.params.symbol));
+    res.json(await binance.getPrice(req.params.symbol));
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
