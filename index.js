@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
 
-import binanceRoutes from "./routes/binance_route.js";
+import binanceRoutes from "./routes/binance_routes.js";
 // Línea Corregida: busca el archivo singular 'bitbex_route.js'
-import bitbexRoutes from "./routes/bitbex_route.js"; 
+import bitbexRoutes from "./routes/bitbex_routes.js"; 
 import arbitrageRoutes from "./routes/arbitrage_route.js";
 
 const app = express();
