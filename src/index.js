@@ -11,6 +11,8 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 8080;
 const META_TOKEN = process.env.META_ACCESS_TOKEN;
+console.log("TOKEN META:", process.env.META_ACCESS_TOKEN ? "OK" : "NO LEÍDO");
+
 
 // 🔎 ENDPOINT DE BÚSQUEDA
 app.get("/api/ads/search", async (req, res) => {
@@ -55,3 +57,4 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
