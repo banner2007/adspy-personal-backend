@@ -1,12 +1,16 @@
 {
   "name": "adspy-personal-backend",
   "version": "1.0.0",
+  "description": "App personal para analizar anuncios con scraping",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js"
   },
   "dependencies": {
+    "axios": "^1.6.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
     "express": "^4.18.2",
-    "cors": "^2.8.5"
+    "playwright": "^1.42.0"
   }
 }
