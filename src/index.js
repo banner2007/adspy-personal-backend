@@ -1,6 +1,6 @@
-import express from "express";
-import cors from "cors";
-import puppeteer from "puppeteer";
+const express = require("express");
+const cors = require("cors");
+const puppeteer = require("puppeteer");
 
 const app = express();
 app.use(cors());
@@ -11,7 +11,6 @@ app.get("/", (req, res) => {
 
 app.get("/api/ads/search", async (req, res) => {
   const keyword = req.query.keyword;
-
   if (!keyword) {
     return res.status(400).json({ error: "Falta keyword" });
   }
@@ -23,7 +22,6 @@ app.get("/api/ads/search", async (req, res) => {
     });
 
     const page = await browser.newPage();
-
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
     );
@@ -46,8 +44,8 @@ app.get("/api/ads/search", async (req, res) => {
     });
 
     await browser.close();
-
     res.json({ keyword, total: ads.length, ads });
+
   } catch (error) {
     console.error("SCRAPING ERROR:", error);
     res.status(500).json({ error: "Error scraping Ad Library" });
