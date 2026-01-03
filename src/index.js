@@ -1,9 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 
+const app = express();
+app.use(cors());
+
+// --------------------
+// Carga condicional del scraper
+// --------------------
 let scrapeAdLibrary = null;
 
-// ⛔ El scraper SOLO se carga si está habilitado
 if (process.env.ENABLE_SCRAPING === "true") {
   try {
     scrapeAdLibrary = require("./scraper");
@@ -11,10 +16,9 @@ if (process.env.ENABLE_SCRAPING === "true") {
   } catch (err) {
     console.error("❌ Error cargando scraper:", err.message);
   }
+} else {
+  console.log("ℹ️ Scraping desactivado (modo seguro)");
 }
-
-const app = express();
-app.use(cors());
 
 // --------------------
 // Health check
@@ -33,7 +37,7 @@ app.get("/api/ads/search", async (req, res) => {
     return res.status(400).json({ error: "Falta keyword" });
   }
 
-  // 🔒 Scraping desactivado (modo seguro)
+  // 🔒 Modo seguro (scraping apagado)
   if (process.env.ENABLE_SCRAPING !== "true") {
     return res.json({
       keyword,
@@ -50,17 +54,18 @@ app.get("/api/ads/search", async (req, res) => {
     });
   }
 
+  // 🕷️ Scraping activo
   try {
     const ads = await scrapeAdLibrary(keyword);
 
-    res.json({
+    return res.json({
       keyword,
       total: ads.length,
       ads
     });
   } catch (error) {
     console.error("SCRAPING ERROR:", error);
-    res.status(500).json({
+    return res.status(500).json({
       error: "Error scraping Ad Library"
     });
   }
