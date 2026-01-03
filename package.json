@@ -1,14 +1,16 @@
 {
   "name": "adspy-personal-backend",
   "version": "1.0.0",
-  "description": "Scraping Ad Library pública",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "postinstall": "npx playwright install chromium"
   },
   "dependencies": {
-    "express": "^4.18.2",
+    "axios": "^1.6.7",
     "cors": "^2.8.5",
-    "puppeteer": "^21.6.0"
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "playwright": "^1.41.0"
   }
 }
