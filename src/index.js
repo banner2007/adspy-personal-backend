@@ -1,26 +1,25 @@
 const express = require("express");
 const cors = require("cors");
-const scrapeAdLibrary = require("./scraper/adLibrary");
+const scrapeAdLibrary = require("./scraper");
 
 const app = express();
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("Backend AdSpy Scraping funcionando 🚀");
+  res.send("Backend Scraping funcionando 🚀");
 });
 
 app.get("/api/ads/search", async (req, res) => {
-  const { keyword } = req.query;
-
+  const keyword = req.query.keyword;
   if (!keyword) {
-    return res.status(400).json({ error: "keyword es requerido" });
+    return res.status(400).json({ error: "keyword requerido" });
   }
 
   try {
     const ads = await scrapeAdLibrary(keyword);
-    res.json({ total: ads.length, ads });
-  } catch (error) {
-    console.error(error);
+    res.json({ ads });
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Error scraping Ad Library" });
   }
 });
