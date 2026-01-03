@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "App personal para analizar anuncios con Meta Ad Library + Google AI Studio",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "dev": "node src/index.js",
     "start": "node src/index.js"
   },
   "dependencies": {
