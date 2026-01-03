@@ -38,7 +38,7 @@ app.get("/api/ads/search", async (req, res) => {
         params: {
           search_terms: keyword,
           ad_type: "ALL",
-          ad_reached_countries: ["US"],
+          ad_reached_countries: "US", // 🔥 STRING, NO ARRAY
           fields: [
             "id",
             "ad_creation_time",
@@ -54,6 +54,7 @@ app.get("/api/ads/search", async (req, res) => {
     );
 
     res.json(response.data);
+
   } catch (error) {
     console.error("ERROR META:", error.response?.data || error.message);
 
